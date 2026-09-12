@@ -1,246 +1,587 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azul Trust - Motor de Experiencias VIP</title>
-    <style>
-        :root {
-            --bokun-green: #00b67a;
-            --bokun-dark: #122234;
-            --text-main: #334155;
-            --sidebar-width: 320px;
-            --border-color: #e2e8f0;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8fafc;
-            color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azul Trust | Luxury Private Transport Costa Rica</title>
+  
+  <meta name="description" content="Azul Trust | Traslados VIP en Costa Rica. Reserve su MG RX8 privado.">
+  <meta property="og:title" content="Azul Trust | Luxury Private Transport Costa Rica">
+  <meta property="og:description" content="Azul Trust | Traslados VIP en Costa Rica. Reserve su MG RX8 privado.">
+  <meta property="og:image" content="mg-tamarindo.jpg">
+  <meta property="og:type" content="website">
 
-        /* DISEÑO DE PANEL LATERAL DE NAVEGACIÓN ESTILO BÓKUN */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--bokun-dark);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 2rem 1.5rem;
-            box-sizing: border-box;
-            justify-content: space-between;
-        }
-        .sidebar h2 { margin: 0; font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; color: #fff; }
-        .sidebar p { font-size: 0.9rem; color: #94a3b8; margin-top: 0.25rem; }
-        
-        .destinos-list {
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            flex-grow: 1;
-        }
-        .destino-item {
-            background-color: rgba(255,255,255,0.05);
-            padding: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-left: 4px solid transparent;
-        }
-        .destino-item:hover, .destino-item.active {
-            background-color: rgba(255,255,255,0.15);
-            border-left-color: var(--bokun-green);
-        }
-        .destino-item h4 { margin: 0; font-size: 1.1rem; color: white; }
-        .destino-item p { margin: 4px 0 0 0; font-size: 0.8rem; color: #cbd5e1; }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Calendario Seguro -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/themes/airbnb.min.css">
+  
+  <style>
+    :root { --primary-blue: #00235a; --primary-hover: #001a43; --gold-accent: #d4af37; --paypal-gold: #FFC439; --paypal-hover: #f2ba32; --text-dark: #111827; --text-muted: #6B7280; --border-color: #E5E7EB; --radius-sm: 6px; --radius-md: 10px; --radius-lg: 12px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background-color: #FFFFFF; color: var(--text-dark); line-height: 1.5; }
+    
+    .top-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 28px; border-bottom: 1px solid var(--border-color); max-width: 1240px; margin: 0 auto; background: #00235a; }
+    .brand-logo img { height: 48px; object-fit: contain; }
+    .currency-pill { border: 1px solid var(--gold-accent); color: var(--gold-accent); padding: 6px 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 20px 28px 60px 28px; }
 
-        /* ESPACIO PRINCIPAL DE CONFIGURACIÓN */
-        .main-content {
-            flex-grow: 1;
-            padding: 2.5rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-        }
+    /* --- NUEVO COLLAGE ANIMADO --- */
+    .hero-collage {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 220px 220px;
+      gap: 12px;
+      margin-bottom: 32px;
+      border-radius: var(--radius-lg);
+      position: relative;
+    }
+    .collage-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      background: #000;
+    }
+    
+    /* Tamaños del Mosaico */
+    .item-main { grid-column: 1 / 3; grid-row: 1 / 3; }
+    .item-top-right { grid-column: 3 / 4; grid-row: 1 / 2; }
+    .item-top-far { grid-column: 4 / 5; grid-row: 1 / 2; }
+    .item-wide { grid-column: 3 / 5; grid-row: 2 / 3; }
 
-        .bokun-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
+    /* Animación Cinemática Continua */
+    .collage-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      animation: cinematicPan 18s infinite alternate ease-in-out;
+      transition: transform 0.5s ease, opacity 0.4s ease;
+    }
+    .collage-item:hover img {
+      opacity: 1;
+      transform: scale(1.1);
+      animation-play-state: paused;
+    }
+    
+    @keyframes cinematicPan {
+      0% { transform: scale(1.02) translate(0, 0); }
+      100% { transform: scale(1.15) translate(-2%, -2%); }
+    }
 
-        .bokun-card h3 { margin-top: 0; font-size: 1.3rem; color: var(--bokun-dark); border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .photo-tag { position: absolute; bottom: 12px; left: 12px; background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(8px); color: #FFFFFF; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 6px; pointer-events: none; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .view-photos-btn { position: absolute; top: 16px; right: 16px; background: rgba(255, 255, 255, 0.96); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; z-index: 5; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: transform 0.2s ease; }
+    .view-photos-btn:hover { transform: translateY(-2px); }
+    /* ----------------------------- */
 
-        /* DISEÑO DE FORMULARIO DE DOS COLUMNAS REJILLA */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-        .form-group-full { grid-column: span 2; }
-
-        label { display: block; font-weight: 600; font-size: 0.85rem; color: #475569; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        input, select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            background-color: #fff;
-            transition: border-color 0.2s;
-        }
-        input:focus, select:focus { outline: none; border-color: var(--bokun-dark); box-shadow: 0 0 0 3px rgba(18, 34, 52, 0.08); }
-
-        /* CONTADORES INTERACTIVOS DE PASAJEROS */
-        .pax-selector {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-            background: #f8fafc;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-        .pax-btn {
-            background: white;
-            border: 1px solid #cbd5e1;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        .pax-btn:hover { background: var(--bokun-dark); color: white; border-color: var(--bokun-dark); }
-        .pax-count { font-size: 1.2rem; font-weight: 700; color: var(--bokun-dark); }
-
-        /* BOTÓN DE RESERVA DE ALTA VISIBILIDAD */
-        .btn-bokun {
-            background-color: var(--bokun-green);
-            color: white;
-            border: none;
-            padding: 1.2rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 12px rgba(0, 182, 122, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .btn-bokun:hover { background-color: #009e6a; transform: translateY(-1px); }
-        .btn-bokun:active { transform: translateY(0); }
-        .btn-bokun:disabled { background-color: #cbd5e1; cursor: not-allowed; box-shadow: none; }
-
-        #alert-box {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-            font-weight: 600;
-            display: none;
-            text-align: center;
-            animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    </style>
+    .product-layout { display: grid; grid-template-columns: 1fr 390px; gap: 44px; align-items: start; }
+    .title-section h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .title-bar { width: 44px; height: 4px; background-color: var(--gold-accent); border-radius: 2px; margin-bottom: 14px; }
+    .meta-tags { display: flex; align-items: center; gap: 18px; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+    .subtitle-text { font-size: 15px; color: #374151; margin-bottom: 24px; transition: opacity 0.3s ease; }
+    .tabs-bar { display: flex; gap: 28px; border-bottom: 1px solid var(--border-color); margin-bottom: 24px; }
+    .tab-btn { background: none; border: none; padding-bottom: 12px; font-size: 15px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; }
+    .tab-btn.active { color: var(--primary-blue); border-bottom-color: var(--primary-blue); }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+    .description-text { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 28px; }
+    .section-heading { font-size: 18px; font-weight: 700; margin: 24px 0 14px 0; }
+    .feature-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .feature-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #374151; }
+    .feature-item.check span { color: var(--gold-accent); font-weight: 700; }
+    .timeline { border-left: 2px solid var(--border-color); margin-left: 10px; padding-left: 20px; }
+    .timeline-step { position: relative; margin-bottom: 24px; }
+    .timeline-step::before { content: ''; position: absolute; left: -27px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary-blue); }
+    .step-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    
+    .booking-widget { position: sticky; top: 24px; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; background: #FFFFFF; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+    .widget-pricing { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color); }
+    .price-label { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); }
+    .price-value { font-size: 32px; font-weight: 700; color: var(--primary-blue); }
+    .price-sub { font-size: 12px; color: var(--text-muted); }
+    .form-group { margin-bottom: 14px; }
+    .form-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; }
+    .form-label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; }
+    .form-control { width: 100%; padding: 11px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px; outline: none; background: #fff; }
+    .form-control:focus { border-color: var(--primary-blue); }
+    .time-selector { font-weight: 700; color: var(--primary-blue); background-color: #EFF6FF; border-color: #BFDBFE; }
+    .luggage-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+    .button-stack { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+    .btn-paypal { width: 100%; background: var(--paypal-gold); color: #003087; border: none; padding: 13px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+    .btn-paypal:hover { background: var(--paypal-hover); }
+    .btn-whatsapp { width: 100%; background: var(--primary-blue); color: #fff; border: none; padding: 13px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-whatsapp:hover { background: var(--primary-hover); }
+    .secure-badge { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; }
+    .floating-reserve-btn { display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold-accent); color: var(--primary-blue); padding: 14px 32px; border-radius: 30px; font-size: 16px; font-weight: 800; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999; text-decoration: none; text-align: center; width: 85%; }
+    
+    .site-footer { background: var(--primary-blue); color: #fff; padding: 40px 20px; text-align: center; margin-top: 40px; font-size: 14px; }
+    .footer-content { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .footer-content a { color: var(--gold-accent); text-decoration: none; font-weight: 600; }
+    
+    .photo-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+    .photo-modal.open { display: flex; }
+    .photo-modal-content { position: relative; max-width: 950px; width: 100%; background: #fff; border-radius: var(--radius-md); overflow: hidden; padding: 24px; text-align: center; }
+    .photo-display-box { position: relative; display: flex; align-items: center; justify-content: center; }
+    .photo-modal-img { max-width: 100%; max-height: 65vh; border-radius: var(--radius-sm); object-fit: contain; }
+    .modal-photo-caption { position: absolute; bottom: 16px; background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(8px); color: #FFFFFF; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 6px; }
+    .photo-modal-close { position: absolute; top: 10px; right: 15px; font-size: 28px; font-weight: 700; cursor: pointer; background: none; border: none; color: var(--text-dark); }
+    .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; font-size: 24px; padding: 12px 16px; border-radius: 50%; cursor: pointer; }
+    .nav-arrow.prev { left: 10px; } .nav-arrow.next { right: 10px; }
+    .photo-modal-thumbs { display: flex; justify-content: center; gap: 10px; margin-top: 18px; overflow-x: auto; padding-bottom: 6px; }
+    .photo-thumb { width: 80px; height: 55px; object-fit: cover; cursor: pointer; border-radius: 4px; border: 2px solid transparent; opacity: 0.6; }
+    .photo-thumb.active { border-color: var(--primary-blue); opacity: 1; }
+    
+    @media (max-width: 960px) { 
+      .hero-collage { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 140px 140px; }
+      .item-main { grid-column: 1 / 3; grid-row: 1 / 2; }
+      .item-top-right { grid-column: 1 / 2; grid-row: 2 / 3; }
+      .item-top-far { grid-column: 2 / 3; grid-row: 2 / 3; }
+      .item-wide { grid-column: 1 / 3; grid-row: 3 / 4; }
+      .product-layout { grid-template-columns: 1fr; } 
+      .booking-widget { position: static; margin-bottom: 60px; } 
+      .floating-reserve-btn { display: block; } 
+    }
+  </style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d375155a97c14c95a6b70fd3a1f68351"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
-    <!-- MENÚ LATERAL: SELECCIÓN DE EXPERIENCIAS (ESTILO BÓKUN OVERVIEW) -->
-    <div class="sidebar">
-        <div>
-            <h2>Azul Trust</h2>
-            <p>Engine & Experience Creation</p>
-            
-            <div class="destinos-list">
-                <div class="destino-item active" onclick="cambiarDestinoItem('Arenal', this)">
-                    <h4>Volcán Arenal VIP</h4>
-                    <p>Caminatas, termales y aventura</p>
-                </div>
-                <div class="destino-item" onclick="cambiarDestinoItem('Manuel Antonio', this)">
-                    <h4>Manuel Antonio Luxury</h4>
-                    <p>Parque nacional y playas paradisíacas</p>
-                </div>
-                <div class="destino-item" onclick="cambiarDestinoItem('Tamarindo', this)">
-                    <h4>Tamarindo Premium Surf</h4>
-                    <p>Atardeceres dorados y yates</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <p style="font-size: 0.75rem; text-align: center;">⚡ Ubuntu Dev Environment ($0 Cost)</p>
-        </div>
+  <header class="top-header">
+  <a href="#" class="brand-logo">
+    <img src="Azul Trust Final Logo.png" alt="Azul Trust Logo" style="height: 75px; object-fit: contain;">
+  </a>
+</header>
+
+  <main class="container">
+    
+    <!-- COLLAGE CINEMÁTICO -->
+    <div class="hero-collage">
+      <!-- 1. Protagonista -->
+      <div class="collage-item item-main" onclick="openPhoto(0)">
+        <img src="mg-tamarindo.jpg" alt="Tamarindo Beach Costa Rica">
+        <span class="photo-tag">📍 Tamarindo Beach</span>
+      </div>
+      <!-- 2. Volcán (Esencia Tica) -->
+      <div class="collage-item item-top-right" onclick="openPhoto(1)">
+        <img src="mg-arenal.jpg" alt="Arenal Volcano">
+        <span class="photo-tag">📍 Arenal</span>
+      </div>
+      <!-- 3. Rainforest (Esencia Tica) -->
+      <div class="collage-item item-top-far" onclick="openPhoto(6)">
+        <img src="mg-exterior.jpg" alt="Rainforest Tour">
+        <span class="photo-tag">🌿 Rainforest</span>
+      </div>
+      <!-- 4. Lujo Interior (Panorámica) -->
+      <div class="collage-item item-wide" onclick="openPhoto(4)">
+        <img src="mg-interior.jpg" alt="Luxury Interior MG RX8">
+        <span class="photo-tag">🚘 Executive Leather Interior</span>
+      </div>
+
+      <button class="view-photos-btn" onclick="openPhoto(0)">View All (7) Photos</button>
     </div>
 
-    <!-- PANEL PRINCIPAL DE DETALLES Y RESERVA -->
-    <div class="main-content">
-        <form id="bokunForm">
-            <!-- SECCIÓN 1: DETALLES DE LA EXPERIENCIA -->
-            <div class="bokun-card">
-                <h3>1. Configuración de la Experiencia</h3>
-                <div class="form-grid">
-                    <div class="form-group-full">
-                        <label for="destino">Destino / Ruta de Sincronización</label>
-                        <select id="destino" name="destino" required>
-                            <option value="Arenal" selected>Volcán Arenal VIP</option>
-                            <option value="Manuel Antonio">Manuel Antonio Luxury</option>
-                            <option value="Tamarindo">Tamarindo Premium Surf</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="fecha">Fecha del Viaje</label>
-                        <input type="date" id="fecha" name="fecha" required>
-                    </div>
-                    <div>
-                        <label for="hora">Hora de Pick-up</label>
-                        <input type="time" id="hora" name="hora" required value="08:00">
-                    </div>
-                </div>
-            </div>
+    <div class="product-layout">
+      <div class="product-info">
+        <div class="title-section">
+          <h1 id="selectedTitle">Transfer SJO Airport to Tamarindo Beach</h1>
+          <div class="title-bar"></div>
+          <div class="meta-tags">
+            <span id="durationMeta">⏱ 4-5 hours</span>
+            <span>🏷 Private Luxury Transfer</span>
+            <span>🚘 MG RX8 Luxury 4x4</span>
+          </div>
+          <p class="subtitle-text" id="routeSubtitle">
+            Indulge in a seamless, luxurious transfer from SJO Airport to the pristine paradise of Tamarindo Beach and the Nicoya Peninsula in our executive MG RX8 SUV.
+          </p>
+        </div>
 
-            <!-- SECCIÓN 2: INFORMACIÓN DEL CLIENTE (Mapeado a tu Google Sheets) -->
-            <div class="bokun-card">
-                <h3>2. Datos del Pasajero Principal & Logística</h3>
-                <div class="form-grid">
-                    <div>
-                        <label for="nombre">Nombre del Líder de Grupo</label>
-                        <input type="text" id="nombre" name="nombre" required placeholder="Ej. Ana María Gómez">
-                    </div>
-                    <div>
-                        <label for="email">Correo Electrónico de Envío</label>
-                        <input type="email" id="email" name="email" required placeholder="ana@example.com">
-                    </div>
-                    <div>
-                        <label for="telefono">Teléfono / WhatsApp</label>
-                        <input type="tel" id="telefono" name="telefono" required placeholder="+506 8888-8888">
-                    </div>
-                    <div>
-                        <label for="pais">País de Procedencia</label>
-                        <input type="text" id="pais" name="pais" placeholder="Ej. Costa Rica, USA">
-                    </div>
-                    <div>
-                        <label for="vuelo">Número de Vuelo (Opcional)</label>
-                        <input type="text" id="vuelo" name="vuelo" placeholder="Ej. AA-2415">
-                    </div>
-                    <div>
-                        <label for="sillaBebe">¿Requiere Silla para Bebé?</label>
-                        <select id="sillaBebe" name="sillaBebe">
-                            <option value="No">No requiere</option>
-                            <option value="Sí (1 Silla)">Sí, 1 Silla de seguridad</option>
-                            <option value="Sí (2 Sillas)">Sí, 2 Sillas de seguridad</option>
-                        </select>
+        <div class="tabs-bar">
+          <button class="tab-btn active" onclick="switchTab('tab-description', this)">Description</button>
+          <button class="tab-btn" onclick="switchTab('tab-itinerary', this)">Itinerary</button>
+          <button class="tab-btn" onclick="switchTab('tab-pickup', this)">Pick-up</button>
+        </div>
+
+        <div id="tab-description" class="tab-pane active">
+          <p class="description-text">
+            Experience the epitome of sophistication with our exclusive transfer service. Relax in a meticulously appointed MG RX8 SUV with tri-zone climate control, plush camel leather seating, high-speed mobile Wi-Fi, and personalized chauffeur attention.
+          </p>
+          <div class="section-heading">What's included?</div>
+          <ul class="feature-list">
+            <li class="feature-item check"><span>✓</span> Dedicated bilingual private chauffeur</li>
+            <li class="feature-item check"><span>✓</span> Mobile Wi-Fi on board</li>
+            <li class="feature-item check"><span>✓</span> Fuel surcharge & highway tolls</li>
+            <li class="feature-item check"><span>✓</span> Complimentary bottled water</li>
+            <li class="feature-item check"><span>✓</span> Complimentary Child/Infant Seat (Upon request)</li>
+            <li class="feature-item check"><span>✓</span> Flight tracking & meet & greet at SJO</li>
+          </ul>
+          <div class="section-heading">Cancellation Policy</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Flexible cancellations and schedule changes permitted up to 24 hours prior to pickup time. Backed by Azul Trust Executive Transport Guarantee.</p>
+        </div>
+
+        <div id="tab-itinerary" class="tab-pane">
+          <div class="timeline">
+            <div class="timeline-step">
+              <div class="step-title">1. Airport Reception & Meet & Greet</div>
+              <div class="step-desc">Your private chauffeur awaits outside the arrivals terminal at SJO holding an executive Azul Trust sign, ready with luggage assistance.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-title">2. Executive Departure in MG RX8</div>
+              <div class="step-desc">Board your private 4x4 luxury SUV with air conditioning, chilled water, and Wi-Fi to stay connected.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-title">3. Scenic Drive & Optional Comfort Stops</div>
+              <div class="step-desc">Direct private travel with flexible stops for coffee, artisan fruit stands, or restrooms at your request.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-title">4. Door-to-Door Destination Arrival</div>
+              <div class="step-desc">Direct drop-off at your hotel, villa, or private residence with complete luggage offloading.</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-pickup" class="tab-pane">
+          <div class="section-heading" style="margin-top:0;">Pick-up & Meeting Point Instructions</div>
+          <p class="description-text"><strong>For Airport Arrivals (SJO):</strong><br>After baggage claim and customs, exit through the main airport doors. Your chauffeur will be waiting in the authorized chauffeur greeting area holding an executive <strong>Azul Trust</strong> sign with your name.</p>
+          <p class="description-text"><strong>For Hotel / Airbnb Pick-ups:</strong><br>Your chauffeur will arrive 10 minutes prior to your scheduled pickup time at the main lobby or entrance and coordinate directly via WhatsApp.</p>
+        </div>
+      </div>
+
+      <aside class="booking-widget" id="bookingFormSection">
+        <div class="widget-pricing">
+          <div class="price-label">Fixed Total Rate</div>
+          <div class="price-value" id="priceDisplay">$420 USD</div>
+          <div class="price-sub">Private vehicle (1 up to 6 passengers)</div>
+        </div>
+
+        <form id="bookingForm">
+          <div class="form-group">
+            <label class="form-label">Select Service Route</label>
+            <select class="form-control" id="routeSelect" onchange="handleRouteChange()">
+              <option value="420|4-5 hours" data-subtitle="Indulge in a seamless, luxurious transfer from SJO Airport to the pristine paradise of Tamarindo Beach and the Nicoya Peninsula in our executive MG RX8 SUV." selected>SJO Airport ➔ Tamarindo / Nicoya ($420 USD)</option>
+              <option value="65|35-45 mins" data-subtitle="Enjoy a swift and elegant executive transfer from SJO Airport directly to your hotel or corporate meeting in the San José metropolitan area.">SJO Airport ➔ San José / Escazú / Santa Ana ($65 USD)</option>
+              <option value="195|1.5-2 hours" data-subtitle="Start your coastal getaway with a premium private drive from SJO Airport to the vibrant beaches and luxury resorts of Jacó and Herradura.">SJO Airport ➔ Jacó / Herradura ($195 USD)</option>
+              <option value="250|3 hours" data-subtitle="Experience maximum comfort on your scenic journey from SJO Airport to the majestic Arenal Volcano and La Fortuna's hot springs.">SJO Airport ➔ La Fortuna / Arenal ($250 USD)</option>
+              <option value="340|3-3.5 hours" data-subtitle="Relax in our luxurious MG RX8 as you travel from SJO Airport to the stunning tropical coast and diverse wildlife of Manuel Antonio.">SJO Airport ➔ Manuel Antonio / Quepos ($340 USD)</option>
+              <option value="160|4 hours" data-subtitle="Hire our executive MG RX8 and a dedicated bilingual chauffeur for 4 hours. Perfect for multiple corporate meetings or a custom half-day tour.">Chauffeur Service (Half Day - 4 hrs) ($160 USD)</option>
+              <option value="320|8 hours" data-subtitle="Enjoy absolute freedom with our premium chauffeur service for 8 hours. Explore Costa Rica at your own pace with unrestricted comfort and luxury.">Chauffeur Service (Full Day - 8 hrs) ($320 USD)</option>
+            </select>
+          </div>
+
+          <div class="form-row form-group">
+            <div>
+              <label class="form-label">Pickup Date</label>
+              <input type="text" class="form-control" id="pickupDate" placeholder="Select date" required>
+            </div>
+            <div>
+              <label class="form-label">Pickup Time</label>
+              <select class="form-control time-selector" id="pickupTime" required>
+                <option value="05:00 AM">05:00 AM</option>
+                <option value="06:00 AM">06:00 AM</option>
+                <option value="07:00 AM">07:00 AM</option>
+                <option value="08:00 AM">08:00 AM</option>
+                <option value="09:00 AM">09:00 AM</option>
+                <option value="10:00 AM" selected>10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM (Noon)</option>
+                <option value="01:00 PM">01:00 PM</option>
+                <option value="02:00 PM">02:00 PM</option>
+                <option value="03:00 PM">03:00 PM</option>
+                <option value="04:00 PM">04:00 PM</option>
+                <option value="05:00 PM">05:00 PM</option>
+                <option value="06:00 PM">06:00 PM</option>
+                <option value="07:00 PM">07:00 PM</option>
+                <option value="08:00 PM">08:00 PM</option>
+                <option value="09:00 PM">09:00 PM</option>
+                <option value="10:00 PM">10:00 PM</option>
+                <option value="11:00 PM">11:00 PM</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Passengers & Luggage</label>
+            <select class="form-control" id="passengers" onchange="updateLuggage()">
+              <option value="1 to 2 passengers">1 to 2 passengers</option>
+              <option value="3 to 4 passengers" selected>3 to 4 passengers</option>
+              <option value="5 passengers">5 passengers</option>
+              <option value="6 passengers (Max)">6 passengers (Max)</option>
+            </select>
+            <div id="luggageText" class="luggage-note">🧳 Luggage limit: 4 large, 2 small</div>
+          </div>
+
+          <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-bottom: 18px;">
+            <input type="checkbox" id="childSeat" style="width: 16px; height: 16px; accent-color: var(--primary-blue);">
+            <label for="childSeat" style="font-size: 13px; color: #374151; font-weight: 500;">Include Complimentary Child/Infant Seat</label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Lead Passenger Name</label>
+            <input type="text" class="form-control" id="clientName" placeholder="Full name" required>
+          </div>
+          <div class="form-row form-group">
+  <div>
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" id="clientEmail" placeholder="correo@ejemplo.com" required>
+  </div>
+  <div>
+    <label class="form-label">Phone / WhatsApp</label>
+    <input type="tel" class="form-control" id="clientPhone" placeholder="+1 234 567 8900" required>
+  </div>
+</div>
+<div class="form-group">
+  <label class="form-label">Country of Origin (Optional)</label>
+  <input type="text" class="form-control" id="clientCountry" placeholder="e.g. USA, Canada">
+</div>
+
+          <div class="form-group">
+            <label class="form-label">Flight # or Pickup Details</label>
+            <input type="text" class="form-control" id="flightInfo" placeholder="e.g. Flight UA1422 or Hotel name">
+          </div>
+<!-- Escudo Cloudflare Turnstile -->
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEnezK9KDOEhVGM1"></div>
+        
+        <div class="button-stack">
+          
+          <div class="button-stack">
+            <button type="button" class="btn-paypal" onclick="payWithPayPal()">
+              <span>Pay with</span>
+              <strong style="color: #003087; font-style: italic;">Pay</strong><strong style="color: #0079C1; font-style: italic;">Pal</strong>
+              <span style="font-size: 13px; font-weight: 500; color: #374151;">/ Card</span>
+            </button>
+            <button type="button" class="btn-whatsapp" onclick="enviarReservaVIP()">
+            Solicitar Reserva VIP
+          </button>
+        </div>
+        <div class="secure-badge" style="color: #d4af37; font-weight: 700; font-size: 12px;">
+          ⚠️ Sujeto a disponibilidad del MG RX8
+        </div>
+        <div class="secure-badge" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; font-size: 12px; color: #374151;">
+          <span>🛡️ Pago Encriptado</span>
+          <span>🗣️ Chofer Bilingüe</span>
+          <span>✨ Sanitizado</span>
+        </div>
+      </form>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <img src="Azul Trust Final Logo.png" alt="Azul Trust" style="height: 40px; object-fit: contain; margin: 0 auto 10px;">
+      <p>Azul Trust | Executive Transport Costa Rica</p>
+      <p>24/7 Emergency & Bookings: <a href="tel:+50688728533">+506 8872 8533</a></p>
+      <p>Email: <a href="mailto:randall.aguirre@gmail.com">randall.aguirre@gmail.com</a></p>
+    </div>
+  </footer>
+
+  <a href="#bookingFormSection" class="floating-reserve-btn">Verificar Disponibilidad</a>
+
+  <div id="photoModal" class="photo-modal" onclick="closePhoto(event)">
+    <div class="photo-modal-content" onclick="event.stopPropagation()">
+      <button class="photo-modal-close" onclick="closePhotoModal()">&times;</button>
+      <div class="photo-display-box">
+        <button class="nav-arrow prev" onclick="changePhoto(-1)">❮</button>
+        <img id="modalActiveImg" class="photo-modal-img" src="mg-tamarindo.jpg" alt="Foto ampliada">
+        <div id="modalCaption" class="modal-photo-caption">Tamarindo Beach</div>
+        <button class="nav-arrow next" onclick="changePhoto(1)">❯</button>
+      </div>
+      <div class="photo-modal-thumbs">
+        <img class="photo-thumb active" src="mg-tamarindo.jpg" onclick="setModalImg(0)">
+        <img class="photo-thumb" src="mg-arenal.jpg" onclick="setModalImg(1)">
+        <img class="photo-thumb" src="mg-jaco.jpg" onclick="setModalImg(2)">
+        <img class="photo-thumb" src="mg-manuelantonio.jpg" onclick="setModalImg(3)">
+        <img class="photo-thumb" src="mg-interior.jpg" onclick="setModalImg(4)">
+        <img class="photo-thumb" src="mg-maletero.jpg" onclick="setModalImg(5)">
+        <img class="photo-thumb" src="mg-exterior.jpg" onclick="setModalImg(6)">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+  
+  <script>
+    window.onload = function() {
+      flatpickr("#pickupDate", {
+        dateFormat: "F j, Y",
+        minDate: "today",
+        defaultDate: "today",
+        disableMobile: true
+      });
+    };
+
+    function switchTab(tabId, el) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    const photoData = [
+      { src: 'mg-tamarindo.jpg', title: '📍 Tamarindo Beach (Guanacaste)' },
+      { src: 'mg-arenal.jpg', title: '📍 Arenal Volcano Route (La Fortuna)' },
+      { src: 'mg-jaco.jpg', title: '📍 Jacó Beach Scenic Lookout' },
+      { src: 'mg-manuelantonio.jpg', title: '📍 Manuel Antonio Tropical Coast' },
+      { src: 'mg-interior.jpg', title: '🚘 Executive Camel Leather Interior' },
+      { src: 'mg-maletero.jpg', title: '🧳 Spacious Executive Luggage Capacity' },
+      { src: 'mg-exterior.jpg', title: '🌿 Costa Rica Rainforest Tour' }
+    ];
+    let currentIndex = 0;
+    
+    function openPhoto(index) {
+      document.getElementById('photoModal').classList.add('open');
+      setModalImg(index);
+    }
+    function setModalImg(index) {
+      currentIndex = index;
+      document.getElementById('modalActiveImg').src = photoData[currentIndex].src;
+      document.getElementById('modalCaption').innerText = photoData[currentIndex].title;
+      document.querySelectorAll('.photo-thumb').forEach((t, i) => t.classList.toggle('active', i === currentIndex));
+    }
+    function changePhoto(step) {
+      currentIndex = (currentIndex + step + photoData.length) % photoData.length;
+      setModalImg(currentIndex);
+    }
+    function closePhotoModal() { document.getElementById('photoModal').classList.remove('open'); }
+    function closePhoto(e) { if (e.target.id === 'photoModal') closePhotoModal(); }
+
+    let currentPriceValue = 420;
+
+    function handleRouteChange() {
+      const select = document.getElementById('routeSelect');
+      const selectedOption = select.options[select.selectedIndex];
+      const [price, duration] = selectedOption.value.split('|');
+      currentPriceValue = price;
+      
+      const routeText = selectedOption.text.split(' (')[0];
+      const subtitleText = selectedOption.getAttribute('data-subtitle');
+      
+      document.getElementById('priceDisplay').innerText = `$${price} USD`;
+      document.getElementById('selectedTitle').innerText = routeText;
+      document.getElementById('durationMeta').innerText = `⏱ ${duration}`;
+      document.getElementById('routeSubtitle').innerText = subtitleText;
+    }
+
+    function updateLuggage() {
+      const pax = document.getElementById('passengers').value;
+      const note = document.getElementById('luggageText');
+      if (pax.includes('6')) {
+        note.innerText = '🧳 Luggage limit: 2 large, 2 small';
+      } else {
+        note.innerText = '🧳 Luggage limit: 4 large, 2 small';
+      }
+    }
+
+  function registrarEnSheet(metodoPago) {
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzXMDyhO89bJ2qWKy1o8ry6ndOTA26s1NrhCowFuQ4inb6pQ5iVMVcG3oucOmwUngpZZA/exec';
+  const formData = new FormData();
+  formData.append('fecha', document.getElementById('pickupDate').value);
+  formData.append('hora', document.getElementById('pickupTime').value);
+  formData.append('cliente', document.getElementById('clientName').value.trim());
+  
+  // NUEVOS CAMPOS AÑADIDOS
+  formData.append('email', document.getElementById('clientEmail').value.trim());
+  formData.append('telefono', document.getElementById('clientPhone').value.trim());
+  formData.append('pais', document.getElementById('clientCountry').value.trim());
+  
+  formData.append('pax', document.getElementById('passengers').value);
+  formData.append('ruta', document.getElementById('selectedTitle').innerText);
+  formData.append('vuelo', document.getElementById('flightInfo').value || 'N/A');
+  formData.append('cobro', document.getElementById('priceDisplay').innerText);
+  formData.append('sillaBebe', document.getElementById('childSeat').checked ? 'Sí' : 'No');
+  formData.append('pago', metodoPago);
+
+  fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+    .catch(error => console.error('Error guardando en Sheets:', error));
+}
+
+    function payWithPayPal() {
+      const name = document.getElementById('clientName').value.trim();
+      if (!name) { alert('Please enter your full name before proceeding to payment.'); document.getElementById('clientName').focus(); return; }
+      
+      registrarEnSheet('PayPal');
+      window.open(`https://paypal.me/aguirrecr7/${currentPriceValue}USD`, '_blank');
+    }
+
+    function sendWhatsApp() {
+      const name = document.getElementById('clientName').value.trim();
+      if (!name) { alert('Please enter your full name before confirming.'); document.getElementById('clientName').focus(); return; }
+
+      
+      const route = document.getElementById('selectedTitle').innerText;
+      const price = document.getElementById('priceDisplay').innerText;
+      const date = document.getElementById('pickupDate').value;
+      const time = document.getElementById('pickupTime').value;
+      const pax = document.getElementById('passengers').value;
+      const flight = document.getElementById('flightInfo').value || 'N/A';
+      const childSeat = document.getElementById('childSeat').checked ? 'Sí (Requested)' : 'No';
+
+      const msg = `*RESERVA AZUL TRUST*%0A` +
+                  `*Cliente:* ${encodeURIComponent(name)}%0A` +
+                  `*Servicio:* ${encodeURIComponent(route)}%0A` +
+                  `*Tarifa:* ${price}%0A` +
+                  `*Fecha:* ${encodeURIComponent(date)}%0A` +
+                  `*Hora:* ${encodeURIComponent(time)}%0A` +
+                  `*Pasajeros:* ${encodeURIComponent(pax)}%0A` +
+                  `*Silla de Bebé:* ${encodeURIComponent(childSeat)}%0A` +
+                  `*Vuelo/Hotel:* ${encodeURIComponent(flight)}`;
+
+      window.open(`https://wa.me/50688728533?text=${msg}`, '_blank');
+    }
+  </script>
+<!-- PANTALLA MODAL DE ÉXITO -->
+<div id="successModal" class="photo-modal" onclick="closeSuccessModal(event)">
+  <div class="photo-modal-content" style="max-width: 500px;" onclick="event.stopPropagation()">
+    <h2 style="color: var(--primary-blue); margin-bottom: 15px;">¡Reserva en Proceso!</h2>
+    <p style="margin-bottom: 20px;">Estamos preparando tu itinerario VIP. En breve recibirás un documento PDF con todos los detalles en tu correo electrónico.</p>
+    <button class="btn-whatsapp" onclick="closeSuccessModal(event)" style="width: auto; padding: 10px 30px;">Entendido</button>
+  </div>
+</div>
+
+<!-- SCRIPT DEL SISTEMA AUTOMÁTICO -->
+<script>
+function enviarReservaVIP() {
+    const nombre = document.getElementById('clientName').value.trim();
+    const email = document.getElementById('clientEmail').value.trim();
+    const phone = document.getElementById('clientPhone').value.trim();
+
+    // 1. Validación estricta de campos obligatorios
+    if (!nombre || !email || !phone) {
+        alert('Por favor completa todos los campos obligatorios (Nombre, Email, Teléfono/WhatsApp).');
+        return;
+    }
+
+    // 2. Validación de Cloudflare Turnstile (Bloqueo de Bots)
+    const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
+    if (!turnstileResponse || !turnstileResponse.value) {
+        alert('Por favor, completa la verificación de seguridad (Captcha) antes de solicitar la reserva.');
+        return;
+    }
+
+    // 3. Mostrar pantalla modal
+    const modal = document.getElementById('successModal');
+    if (modal) {
+        modal.classList.add('open');
+    }
+
+    // 4. Registrar en Google Sheets
+    registrarEnSheet('Nueva Reserva Web VIP');
+
+    // 5. (Opcional) Si deseas que además de enviar el correo, se abra el chat de WhatsApp al cliente:
+    // Descomenta la siguiente línea si ese es el flujo que el CEO prefiere.
+    setTimeout(() => { sendWhatsApp(); }, 2000); 
+}
+
+function closeSuccessModal(e) {
+    const modal = document.getElementById('successModal');
+    if (modal) modal.classList.remove('open');
+}
+</script>
+</body>
+</html>
